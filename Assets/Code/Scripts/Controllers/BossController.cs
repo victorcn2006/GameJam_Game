@@ -4,7 +4,13 @@ using UnityEngine.Events;
 
 public class BossController : MonoBehaviour
 {
+    const string idleStateString = "Idle";
+    const string attackStateString = "Attack";
+    const string vulnerableStateString = "Vulnerable";
+    const string dieStateString = "Die";
+
     StateMachineComponent sm;
+    TimeManager tm;
 
     [Header("Boss Stats")]
     [SerializeField] int maxHP = 3;
@@ -14,21 +20,67 @@ public class BossController : MonoBehaviour
     [SerializeField] bool isDead = false;
     [SerializeField] bool invulnerable = false;
 
+    [Header("References")]
+    [SerializeField] GameObject LaserLightPrefab;
+    [SerializeField] Transform LaserLightTransform;
+
+    [Header("Player")]
+    [SerializeField] Transform player;
+
     [Header("Events")]
-    public UnityEvent OnTakeDamage;
-    public UnityEvent OnDeath;
-    public UnityEvent OnHeal;
+    private UnityEvent OnTakeDamage;
+    private UnityEvent OnDeath;
+    private UnityEvent OnHeal;
 
     void Start()
     {
         sm = GetComponent<StateMachineComponent>();
-
+        tm = TimeManager.Instance;
         currentHP = maxHP;
     }
+
+    string previousState = "";
 
     void Update()
     {
         string currentState = sm.GetCurrentStateName();
+
+        // Detectar cambio de estado
+        if (currentState != previousState)
+        {
+            previousState = currentState;
+
+            switch (currentState)
+            {
+                case idleStateString:
+
+                    tm.OneShotTimer(0.5f, () =>
+                    {
+                        sm.GetStateContext().idleChangeState = true;
+                    });
+
+                    break;
+
+                case attackStateString:
+
+                    // SOLO se ejecuta una vez al entrar
+                    ShootLaser();
+
+                    break;
+
+                case vulnerableStateString:
+
+                    tm.OneShotTimer(1f, () =>
+                    {
+                        sm.GetStateContext().vulnerableChangeState = true;
+                    });
+
+                    break;
+
+                case dieStateString:
+                    break;
+            }
+        }
     }
 
     // DAMAGE
@@ -51,6 +103,27 @@ public class BossController : MonoBehaviour
             currentHP = 0;
             Die();
         }
+    }
+
+    public void ShootLaser()
+    {
+        if (LaserLightPrefab == null || LaserLightTransform == null || player == null)
+            return;
+
+        // Dirección hacia el jugador
+        Vector3 direction = (player.position - LaserLightTransform.position).normalized;
+
+        // Rotación mirando al jugador
+        Quaternion rotation = Quaternion.LookRotation(direction);
+
+        // Instanciar láser
+        GameObject laser = Instantiate(
+            LaserLightPrefab,
+            LaserLightTransform.position,
+            rotation
+        );
+        sm.GetStateContext().vulnerableChangeState = true;
+        //timerStarted = false;
     }
 
     // DEATH
@@ -99,4 +172,6 @@ public class BossController : MonoBehaviour
         currentHP = maxHP;
         invulnerable = false;
     }
+
+    
 }

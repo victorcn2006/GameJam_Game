@@ -7,8 +7,9 @@ public enum Conditions
 {
    hasHP0,
    getsHit,
-
-   hardChangeState
+   idleChangeState,
+   attackChangeState,
+   vulnerableChangeState
 }
 
 /// <summary>
@@ -20,7 +21,9 @@ public class Context
     //TODO: Make context booleans for conditions
     public int HP = 3;
     public bool getsHit = false;
-    public bool hardChangeState = false;
+    public bool idleChangeState = false;
+    public bool attackChangeState = false;
+    public bool vulnerableChangeState = false;
 }
 
 /// <summary>
@@ -34,7 +37,9 @@ public class Condition
     {
         context.HP = 3;
         context.getsHit = false;
-        context.hardChangeState = false;
+        context.idleChangeState = false;
+        context.attackChangeState = false;
+        context.vulnerableChangeState = false;
         Context = context;
     }
 
@@ -46,8 +51,12 @@ public class Condition
                 return IsHP0();
             case Conditions.getsHit:
                 return GetsHit();
-            case Conditions.hardChangeState:
-                return HardChangeState();
+            case Conditions.idleChangeState:
+                return IdleChangeState();
+            case Conditions.attackChangeState:
+                return AttackChangeState();
+            case Conditions.vulnerableChangeState:
+                return VulnerableChangeState();
             default:
                 Debug.LogError($"Unhandled Condition: {condition}");
                 return false;
@@ -68,9 +77,40 @@ public class Condition
         return Context.getsHit;
     }
 
-    public bool HardChangeState()
+    public bool IdleChangeState()
     {
-        return Context.hardChangeState;
+        if (Context.idleChangeState)
+        {
+            Context.idleChangeState = false;
+            return true;
+        }
+        else
+            return false;
+
+    }
+
+    public bool AttackChangeState()
+    {
+        if (Context.attackChangeState)
+        {
+            Context.attackChangeState = false;
+            return true;
+        }
+        else
+            return false;
+
+    }
+
+    public bool VulnerableChangeState()
+    {
+        if (Context.vulnerableChangeState)
+        {
+            Context.vulnerableChangeState = false;
+            return true;
+        }
+        else
+            return false;
+
     }
     //TODO: Make functions for checking conditions booleans
 }

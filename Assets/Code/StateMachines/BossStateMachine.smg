@@ -77,8 +77,8 @@ MonoBehaviour:
           serializedVersion: 2
           x: -220
           y: -181.6
-          width: 2088.7998
-          height: 835.19995
+          width: 2087.2
+          height: 839.19995
         m_GraphElementMetaData:
         - m_Guid:
             m_Value0: 13302205682760819097
@@ -1286,7 +1286,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: ba1938a938845c9a46c98dc331520741
         m_Version: 2
-        m_Position: {x: 1046.33, y: 567.3159}
+        m_Position: {x: 1016.8899, y: 570.9959}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1351,7 +1351,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: Conditions, StateMachine.Runtime, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
-          m_Value: 2
+          m_Value: 4
         m_EnumType:
           m_Identification: Conditions, StateMachine.Runtime, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
@@ -1369,7 +1369,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: fbdc8cd27204d640c84f5e6ec6cf7149
         m_Version: 2
-        m_Position: {x: 603.2232, y: 428.58582}
+        m_Position: {x: 577.46326, y: 431.34583}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -1434,7 +1434,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: Conditions, StateMachine.Runtime, Version=0.0.0.0,
               Culture=neutral, PublicKeyToken=null
-          m_Value: 2
+          m_Value: 3
         m_EnumType:
           m_Identification: Conditions, StateMachine.Runtime, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
