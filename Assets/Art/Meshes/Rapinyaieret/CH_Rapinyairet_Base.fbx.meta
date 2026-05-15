@@ -3,7 +3,12 @@ guid: 8f37f0d7d98f15847be2c66e3cae0336
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rapinya_Mat
+    second: {fileID: 2100000, guid: 400c3b9a667ef1a4db557a56c29ea89f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
