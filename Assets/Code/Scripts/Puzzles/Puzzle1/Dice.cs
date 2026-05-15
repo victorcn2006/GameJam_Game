@@ -8,7 +8,7 @@ public class Dice : MonoBehaviour, IInteractive
 
     public void Interact()
     {
-
+        _diceSystem.RotateDice();
     }
 
     private void Awake()

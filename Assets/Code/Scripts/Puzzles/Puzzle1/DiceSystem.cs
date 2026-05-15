@@ -16,7 +16,7 @@ public class DiceSystem : MonoBehaviour
         _puzzleOneManager = GetComponentInParent<PuzzleOneManager>();
     }
 
-    void Start()
+    public void RotateDice()
     {
         dice.transform
             .DOLocalRotate(new Vector3(0f, 0f, -450f), 1.2f, RotateMode.FastBeyond360)
