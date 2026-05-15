@@ -12,6 +12,8 @@ public class PuzzleOneManager : MonoBehaviour
         if (diceID == 1) Dice1 = state;
         else Dice2 = state;
 
+        Debug.Log(Dice1 + " " + Dice2);
+
         if (Dice1 && Dice2) OpenDoor();
 
     }
@@ -19,7 +21,6 @@ public class PuzzleOneManager : MonoBehaviour
     private void OpenDoor()
     {
         Debug.Log("Puerta abierta");
-        //Animacion para abrir puerta
     }
 
 }
