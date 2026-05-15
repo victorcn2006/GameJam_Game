@@ -41,7 +41,7 @@ public class Deflector : MonoBehaviour, IInteractive
         }
 
         Transform target = _puzzlePositions.GetPosition(_currentRowId, _currentColumnId);
-        transform.DOMove(target.position, moveDuration);
+        transform.DOMove(target.position, moveDuration).SetEase(Ease.OutSine);
     }
 
     public void OnSidePlayerDetected(DeflectorSide.Side side)
