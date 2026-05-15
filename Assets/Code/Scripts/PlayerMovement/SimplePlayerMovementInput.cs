@@ -28,7 +28,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
     Vector3 currentVelocity;
 
     bool canInteract;
-
+    IInteractive _lastInteractiveObject;
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -76,15 +76,18 @@ public class SimplePlayerMovementInput : MonoBehaviour
         }
 
         if (interactionAction.action.WasPressedThisFrame())
-            if(canInteract) Debug.Log("Interactuar");
+            if (canInteract) _lastInteractiveObject.Interact();
 
         exclamationImage.enabled = canInteract;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Interactable"))
+        if (other.CompareTag("Interactable"))
+        {
             canInteract = true;
+            _lastInteractiveObject = other.GetComponent<IInteractive>();
+        }
     }
     private void OnTriggerExit(Collider other)
     {

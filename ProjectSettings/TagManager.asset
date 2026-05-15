@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 3
   tags:
   - FaceDetector
+  - Interactable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Interactable
   - Water
   - UI
   - 

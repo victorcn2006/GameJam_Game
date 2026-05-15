@@ -25,11 +25,10 @@ public class DiceSystem : MonoBehaviour
             .OnComplete(Check);
     }
 
-    public void SetDiceState(bool state) => _resolved = state;
-
     private void Check()
     {
-        if (_resolved) _puzzleOneManager.DiceState(diceID, _resolved);
+        bool state = dice.GetComponent<Dice>().GetState();
+        _puzzleOneManager.DiceState(diceID, state);
     }
 
 }
