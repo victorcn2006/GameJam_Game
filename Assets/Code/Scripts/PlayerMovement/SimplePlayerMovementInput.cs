@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 public class SimplePlayerMovementInput : MonoBehaviour
 {
     [Header("Movimiento")]
-    [SerializeField] float walkSpeed = 5f;
+    [SerializeField] float walkSpeed = 8f;
     [SerializeField] float sprintSpeed = 9f;
 
     [Header("Input Actions")]
     [SerializeField] InputActionReference moveAction;   
-    [SerializeField] InputActionReference sprintAction; 
-
+    [SerializeField] InputActionReference sprintAction;
+    [SerializeField] InputActionReference interactionAction;
     CharacterController controller;
 
     void Awake()
