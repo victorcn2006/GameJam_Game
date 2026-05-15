@@ -5,15 +5,10 @@ using UnityEngine;
 /// </summary>
 public enum Conditions
 {
-   //TODO: Make Conditions
-   isHP0,
-   isAttack,
-   isCollect,
-   isMove,
-   isInRange,
+   hasHP0,
+   getsHit,
 
-   hasWork,
-   workFinished
+   hardChangeState
 }
 
 /// <summary>
@@ -23,14 +18,9 @@ public enum Conditions
 public class Context
 {
     //TODO: Make context booleans for conditions
-    public int HP = 0;
-    public bool Range = false;
-    public bool isAttack = false;
-    public bool isCollect = false;
-    public bool isMove = false;
-
-    public bool hasWork = false;
-    public bool workFinished = false;
+    public int HP = 3;
+    public bool getsHit = false;
+    public bool hardChangeState = false;
 }
 
 /// <summary>
@@ -42,13 +32,9 @@ public class Condition
 
     public Condition(Context context)
     {
-        context.HP = 0;
-        context.Range = false;
-        context.isAttack = false;
-        context.isCollect = false;
-        context.isMove = false;
-        context.hasWork = false;
-        context.workFinished = false;
+        context.HP = 3;
+        context.getsHit = false;
+        context.hardChangeState = false;
         Context = context;
     }
 
@@ -56,20 +42,12 @@ public class Condition
     {
         switch (condition)
         {
-            case Conditions.isHP0:
+            case Conditions.hasHP0:
                 return IsHP0();
-            case Conditions.isInRange:
-                return IsInRange();
-            case Conditions.isAttack:
-                return IsAttack();
-            case Conditions.isCollect:
-                return IsCollect();
-            case Conditions.isMove:
-                return IsMove();
-            case Conditions.hasWork:
-                return HasWork();
-            case Conditions.workFinished:
-                return WorkFinished();
+            case Conditions.getsHit:
+                return GetsHit();
+            case Conditions.hardChangeState:
+                return HardChangeState();
             default:
                 Debug.LogError($"Unhandled Condition: {condition}");
                 return false;
@@ -85,46 +63,14 @@ public class Condition
         else return false;
     }
 
-    public bool IsInRange()
+    public bool GetsHit()
     {
-      if(Context.Range == true)
-            return true;
-      else return false;
+        return Context.getsHit;
     }
 
-    public bool IsAttack()
+    public bool HardChangeState()
     {
-        if (Context.isAttack == true)
-            return true;
-        else return false;
-    }
-
-    public bool IsCollect()
-    {
-        if (Context.isCollect == true)
-            return true;
-        else return false;
-    }
-
-    public bool IsMove()
-    {
-        if (Context.isMove) 
-            return true;    
-        else return false;
-    }
-
-    public bool HasWork()
-    {
-        if (Context.hasWork)
-            return true;
-        else return false;
-    }
-
-    public bool WorkFinished()
-    {
-        if(Context.workFinished)
-            return true;
-        else return false;
+        return Context.hardChangeState;
     }
     //TODO: Make functions for checking conditions booleans
 }
