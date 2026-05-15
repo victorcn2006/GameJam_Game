@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 3975919411843842063}
   - component: {fileID: 7345372775854285950}
   - component: {fileID: 1874545808352680460}
+  - component: {fileID: 4055589402031013219}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -493,3 +494,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4055589402031013219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846449689147051686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84033aecbc3198e4891687a86d75d0e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  health: 3
