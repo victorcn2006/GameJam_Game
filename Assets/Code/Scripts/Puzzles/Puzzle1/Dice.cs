@@ -12,6 +12,10 @@ public class Dice : MonoBehaviour, IInteractive
         _diceSystem.RotateDice();
     }
 
+    public void InteractB()
+    {
+        throw new System.NotImplementedException();
+    }
     private void Awake()
     {
         _diceSystem = GetComponentInParent<DiceSystem>();
