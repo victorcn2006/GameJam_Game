@@ -39,6 +39,7 @@ public class EventSystemManager : MonoBehaviour {
         var current = EventSystem.current.currentSelectedGameObject;
         if (current != null && current != lastSelectedObject){
             lastSelectedObject = current;
+            if (AudioManager.instance != null) AudioManager.instance.PlayNavigation();
         }
     }
     private void OnDestroy()
