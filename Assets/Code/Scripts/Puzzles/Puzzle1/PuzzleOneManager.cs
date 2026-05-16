@@ -1,5 +1,7 @@
 using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
+
 
 public class PuzzleOneManager : MonoBehaviour
 {
@@ -7,6 +9,9 @@ public class PuzzleOneManager : MonoBehaviour
     private bool Dice2;
 
     [SerializeField] private GameObject _door;
+
+    [SerializeField] private CinemachineCamera doorCam;
+    [SerializeField] private CinemachineCamera playerCam;
 
     private bool doorOpen = false;
 
