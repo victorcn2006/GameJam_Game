@@ -48,7 +48,9 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
-        string currentState = sm.GetCurrentStateName();
+        string currentState = "";
+        if (sm.execution)
+            currentState = sm.GetCurrentStateName();
 
         if (currentState == previousState)
             return;
@@ -122,11 +124,8 @@ public class BossController : MonoBehaviour
 
         Quaternion rotation = Quaternion.LookRotation(direction);
 
-        Instantiate(
-            LaserLightPrefab,
-            LaserLightTransform.position,
-            rotation
-        );
+        GameObject laser = Instantiate( LaserLightPrefab, LaserLightTransform.position, rotation );
+        laser.GetComponent<LaserLightBehaviour>().origin = this.transform;
     }
 
     public void TakeDamage(int damage)
