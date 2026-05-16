@@ -14,9 +14,18 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] Image exclamationImage;
+    [SerializeField] Image exclamationImage2;
+    [Header("Parry")]
+    [SerializeField] InputActionReference attackAction;
+
+    [SerializeField] Transform boss;
+
+    bool canParry;
+    GameObject currentLaser;
 
     [Header("Colliders")]
     [SerializeField] Collider interactionCollider;
+    [SerializeField] Collider parryCollider;
 
     [Header("Input Actions")]
     [SerializeField] InputActionReference moveAction;
@@ -24,6 +33,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
     [SerializeField] InputActionReference interactionAction;
 
     CharacterController controller;
+    Animator animator;
 
     Vector3 currentVelocity;
 
@@ -32,12 +42,19 @@ public class SimplePlayerMovementInput : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
         bool isSprinting = sprintAction.action.IsPressed();
+
+        // Detectar si se está moviendo
+        bool isMoving = moveInput.sqrMagnitude > 0.01f;
+
+        // Animator
+        animator.SetBool("Run", isMoving);
 
         float targetSpeed = isSprinting ? sprintSpeed : walkSpeed;
 
@@ -79,6 +96,16 @@ public class SimplePlayerMovementInput : MonoBehaviour
             if (canInteract) _lastInteractiveObject.Interact();
 
         exclamationImage.enabled = canInteract;
+
+        if (attackAction.action.WasPressedThisFrame())
+        {
+            if (canParry && currentLaser != null)
+            {
+                ParryLaser(currentLaser);
+            }
+        }
+
+        exclamationImage2.enabled = canParry;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -88,11 +115,38 @@ public class SimplePlayerMovementInput : MonoBehaviour
             canInteract = true;
             _lastInteractiveObject = other.GetComponent<IInteractive>();
         }
+
+        if (other.CompareTag("Laser"))
+        {
+            canParry = true;
+            currentLaser = other.gameObject;
+        }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Interactable"))
             canInteract = false;
+
+        if (other.CompareTag("Laser"))
+        {
+            canParry = false;
+            currentLaser = null;
+        }
+    }
+
+    void ParryLaser(GameObject laser)
+    {
+        if (boss == null || laser == null)
+            return;
+
+        Vector3 direction = (boss.position - laser.transform.position).normalized;
+
+        Quaternion rotation = Quaternion.LookRotation(direction);
+
+        laser.transform.rotation = rotation;
+
+        Debug.Log("PARRY PERFECTO!");
     }
 
     void OnEnable()
