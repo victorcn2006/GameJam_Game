@@ -4676,18 +4676,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1431429369 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4055589402031013219, guid: ce1c35f0ea4278b48b474457993c0cee,
-    type: 3}
-  m_PrefabInstance: {fileID: 128088453}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84033aecbc3198e4891687a86d75d0e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
 --- !u!4 &1431429375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5088871282652020614, guid: ce1c35f0ea4278b48b474457993c0cee,
@@ -4874,7 +4862,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _characterStats
       value: 
-      objectReference: {fileID: 1431429369}
+      objectReference: {fileID: 0}
     - target: {fileID: 139180552934469239, guid: 70bce30538b1461498dac49087b64a10,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5905,7 +5893,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Target.TrackingTarget
       value: 
-      objectReference: {fileID: 1431429375}
+      objectReference: {fileID: 0}
     - target: {fileID: 9104184816645263853, guid: 556db4bbe180fd24481d02581cf60e2e,
         type: 3}
       propertyPath: FollowOffset.z
