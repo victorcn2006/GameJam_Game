@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,29 +12,30 @@ public class SimplePlayerMovementInput : MonoBehaviour
     [SerializeField] float acceleration = 12f;
     [SerializeField] float rotationSpeed = 8f;
 
+    [Header("Shield")]
+    [SerializeField] public bool hasShield;
+    [SerializeField] GameObject shieldReference;
 
     [Header("UI References")]
     [SerializeField] Image exclamationImage;
     [SerializeField] Image exclamationImage2;
-    [Header("Parry")]
-    [SerializeField] InputActionReference attackAction;
-
-    [SerializeField] Transform boss;
+    [SerializeField] public CinemachineCamera obtainCamera;
 
     bool canParry;
     GameObject currentLaser;
 
     [Header("Colliders")]
     [SerializeField] Collider interactionCollider;
-    [SerializeField] Collider parryCollider;
 
     [Header("Input Actions")]
     [SerializeField] InputActionReference moveAction;
     [SerializeField] InputActionReference sprintAction;
     [SerializeField] InputActionReference interactionAction;
+    [SerializeField] InputActionReference attackAction;
 
     CharacterController controller;
-    Animator animator;
+    public Animator animator;
+    Transform laserOrigin;
 
     Vector3 currentVelocity;
 
@@ -97,14 +99,20 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
         exclamationImage.enabled = canInteract;
 
-        if (attackAction.action.WasPressedThisFrame())
-        {
-            if (canParry && currentLaser != null)
-            {
-                ParryLaser(currentLaser);
-            }
-        }
+        shieldReference.SetActive(hasShield);
 
+        if (hasShield)
+        {
+            if (attackAction.action.WasPressedThisFrame())
+            {
+                if (canParry && currentLaser != null)
+                {
+                    ParryLaser(currentLaser);
+                    animator.SetTrigger("Parry");
+                }
+            }
+
+        }
         exclamationImage2.enabled = canParry;
     }
 
@@ -115,11 +123,13 @@ public class SimplePlayerMovementInput : MonoBehaviour
             canInteract = true;
             _lastInteractiveObject = other.GetComponent<IInteractive>();
         }
-
-        if (other.CompareTag("Laser"))
+        if (hasShield)
         {
-            canParry = true;
-            currentLaser = other.gameObject;
+            if (other.CompareTag("Laser"))
+            {
+                canParry = true;
+                currentLaser = other.gameObject;
+            }
         }
     }
 
@@ -127,39 +137,53 @@ public class SimplePlayerMovementInput : MonoBehaviour
     {
         if (other.CompareTag("Interactable"))
             canInteract = false;
-
-        if (other.CompareTag("Laser"))
+        if (hasShield)
         {
-            canParry = false;
-            currentLaser = null;
+            if (other.CompareTag("Laser"))
+            {
+                canParry = false;
+                currentLaser = null;
+            }
         }
     }
 
     void ParryLaser(GameObject laser)
     {
-        if (boss == null || laser == null)
+        laserOrigin = laser.GetComponent<LaserLightBehaviour>().origin;
+        if (laserOrigin == null || laser == null)
             return;
 
-        Vector3 direction = (boss.position - laser.transform.position).normalized;
+        Vector3 direction = (laserOrigin.position - laser.transform.position).normalized;
 
         Quaternion rotation = Quaternion.LookRotation(direction);
 
         laser.transform.rotation = rotation;
 
         Debug.Log("PARRY PERFECTO!");
+        laserOrigin = null;
     }
 
-    void OnEnable()
+    public void EnableInput()
     {
         moveAction.action.Enable();
         sprintAction.action.Enable();
         interactionAction.action.Enable();
     }
 
-    void OnDisable()
+    public void DisableInput()
     {
         moveAction.action.Disable();
         sprintAction.action.Disable();
         interactionAction.action.Disable();
+    }
+
+    void OnEnable()
+    {
+        EnableInput();
+    }
+
+    void OnDisable()
+    {
+        DisableInput();
     }
 }

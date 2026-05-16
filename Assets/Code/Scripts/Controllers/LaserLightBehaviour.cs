@@ -6,6 +6,7 @@ public class LaserLightBehaviour : MonoBehaviour
     [SerializeField] float speed = 25f;
     [SerializeField] float lifeTime = 5f;
 
+    [SerializeField] public Transform origin;
     void Start()
     {
         // Auto-destrucción para limpiar jerarquía
