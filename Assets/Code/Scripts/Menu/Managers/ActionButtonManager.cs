@@ -39,12 +39,15 @@ public class ActionButtonManager : MonoBehaviour
         switch (currentButton)
         {
             case BUTTONS.PLAY:
+                AudioManager.instance.PlayClick();
                 SceneManager.LoadScene("Play");
                 break;
             case BUTTONS.OPTIONS:
+                AudioManager.instance.PlayClick();
                 SceneManager.LoadScene("Options");
                 break;
             case BUTTONS.MAINMENU:
+                AudioManager.instance.PlayClick();
                 SceneManager.LoadScene("MainMenu");
                 break;
             case BUTTONS.CONTINUE:
@@ -56,8 +59,10 @@ public class ActionButtonManager : MonoBehaviour
                 break;
             case BUTTONS.EXIT:
                 #if UNITY_EDITOR
+                    AudioManager.instance.PlayClick();
                     EditorApplication.isPlaying = false; // Detiene el juego en el editor
                 #else
+                    AudioManager.instance.PlayClick();
                     Application.Quit(); // Cierra la build final
                 #endif
                 break;
