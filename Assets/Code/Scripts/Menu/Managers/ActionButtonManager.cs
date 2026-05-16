@@ -42,9 +42,11 @@ public class ActionButtonManager : MonoBehaviour
                 SceneManager.LoadScene("Play");
                 break;
             case BUTTONS.OPTIONS:
+                SceneManager.LoadScene("Options");
+                break;
             case BUTTONS.MAINMENU:
             case BUTTONS.CONTINUE:
-                SceneManager.LoadScene("Options");
+                
                 //PauseManager.instance?.SetPause();
                 break;
             case BUTTONS.CREDITS:
