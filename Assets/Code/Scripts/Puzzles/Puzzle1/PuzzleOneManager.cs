@@ -22,7 +22,7 @@ public class PuzzleOneManager : MonoBehaviour
     private void OpenDoor()
     {
 
-        _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 90f, 0), 5f);
+        _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 90f, 0), 5f).SetEase(Ease.InOutCubic);
     }
 
 }
