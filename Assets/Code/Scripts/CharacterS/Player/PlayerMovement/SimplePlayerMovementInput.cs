@@ -33,6 +33,10 @@ public class SimplePlayerMovementInput : MonoBehaviour
     [SerializeField] InputActionReference sprintAction;
     [SerializeField] InputActionReference interactionAction;
     [SerializeField] InputActionReference attackAction;
+    [SerializeField] InputActionReference rotateAction;
+
+    [Header("Audios")]
+    [SerializeField] AudioClip parrySound;
 
     CharacterController controller;
     public Animator animator;
@@ -42,10 +46,14 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
     bool canInteract;
     IInteractive _lastInteractiveObject;
+
+    AudioSource audioSource;
+    public bool hasParry;
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -97,6 +105,8 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
         if (interactionAction.action.WasPressedThisFrame())
             if (canInteract) _lastInteractiveObject.Interact();
+        if (rotateAction.action.WasPressedThisFrame())
+            if (canInteract) _lastInteractiveObject.InteractB();
 
         exclamationImage.enabled = canInteract;
 
@@ -159,9 +169,11 @@ public class SimplePlayerMovementInput : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction);
 
         laser.transform.rotation = rotation;
-
+        audioSource.clip = parrySound;
         Debug.Log("PARRY PERFECTO!");
         laserOrigin = null;
+        hasParry = true;
+        TimeManager.Instance.OneShotTimer(1f, () => hasParry = false);
     }
 
     public void EnableInput()

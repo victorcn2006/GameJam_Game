@@ -8,6 +8,8 @@ TagManager:
   - Interactable
   - Turtle
   - Laser
+  - Undefined
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - Interactable
   - Water
   - UI
-  - 
-  - 
+  - Boss
+  - Laser
   - 
   - 
   - 

@@ -1,14 +1,30 @@
 using Unity.Multiplayer.PlayMode;
 using UnityEngine;
 using StateMachine.Runtime;
+using System.Collections.Generic;
+using Unity.Cinemachine;
 public class ShieldCollect : MonoBehaviour
 {
     public GameObject shieldModel;
     public Collider shieldCollider;
     public StateMachineComponent BossStateMachine;
 
+    [SerializeField] AudioClip getItemSFX;
+
     bool setStaticRotation;
     SimplePlayerMovementInput playerController;
+
+    private AudioSource playerControllerAudioSource;
+
+    [SerializeField] private List<GameObject> collidersBoss;
+    [SerializeField] private CinemachineCamera battleCam;
+    [SerializeField] private CinemachineCamera playerCam;
+
+    private void Start()
+    {
+        playerControllerAudioSource = GetComponent<AudioSource>();
+        playerControllerAudioSource.clip = getItemSFX;
+    }
 
     private void Update()
     {
@@ -29,14 +45,26 @@ public class ShieldCollect : MonoBehaviour
             playerController.obtainCamera.gameObject.SetActive(true);
             playerController.animator.SetTrigger("ChaChaChaChan");
             playerController.shieldGetReference.SetActive(true);
+            playerControllerAudioSource.Play();
             TimeManager.Instance.OneShotTimer(2f, () => 
             {
                 playerController.animator.SetTrigger("TerminarChan");
                 playerController.obtainCamera.gameObject.SetActive(false);
-                playerController.shieldGetReference.SetActive(false);
+                battleCam.gameObject.SetActive(true);
                 setStaticRotation = false;
-                playerController.EnableInput();
-                playerController.hasShield = true;
+                foreach(GameObject gameObject in collidersBoss)
+                    gameObject.SetActive(true);
+
+                TimeManager.Instance.OneShotTimer(0.8f, () => 
+                { 
+                    playerController.shieldGetReference.SetActive(false);
+                    playerController.hasShield = true;
+                    playerController.EnableInput();
+                }
+                );
+                gameObject.SetActive(false);
+                
+                
                 BossStateMachine.StartStateMachineExecution();
             });
         }

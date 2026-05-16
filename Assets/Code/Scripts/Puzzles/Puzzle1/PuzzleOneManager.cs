@@ -1,5 +1,7 @@
 using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
+
 
 public class PuzzleOneManager : MonoBehaviour
 {
@@ -7,6 +9,11 @@ public class PuzzleOneManager : MonoBehaviour
     private bool Dice2;
 
     [SerializeField] private GameObject _door;
+
+    [SerializeField] private CinemachineCamera doorCam;
+    [SerializeField] private CinemachineCamera playerCam;
+
+    private bool doorOpen = false;
 
     public void DiceState(int diceID, bool state)
     {
@@ -21,8 +28,11 @@ public class PuzzleOneManager : MonoBehaviour
 
     private void OpenDoor()
     {
-
-        _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 90f, 0), 5f).SetEase(Ease.InOutCubic);
+        if (!doorOpen)
+        {
+            doorOpen = true;
+            _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 45f, 0), 5f).SetEase(Ease.InOutCubic);
+        }
     }
 
 }
