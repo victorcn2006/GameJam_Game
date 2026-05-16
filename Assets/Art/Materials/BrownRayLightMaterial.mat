@@ -464,7 +464,7 @@ Material:
     - _Tweak_RimLightMaskLevel: 0
     - _Tweak_ShadingGradeMapLevel: 0
     - _Tweak_SystemShadowsLevel: 0
-    - _Tweak_transparency: -0.8
+    - _Tweak_transparency: -1
     - _UVDetail: 0
     - _Unlit_Intensity: 4
     - _UseShadowThreshold: 0
@@ -495,7 +495,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Color: {r: 1.8188596, g: 0.4164834, b: 0.36720368, a: 1}
+    - _Emissive_Color: {r: 1.8188596, g: 0.4164834, b: 0.36720368, a: 0.9882353}
     - _FirstShadeMaskColor: {r: 0, g: 1, b: 1, a: 1}
     - _HighColor: {r: 0.1497543, g: 0.3455187, b: 0.645283, a: 1}
     - _HighlightMaskColor: {r: 1, g: 1, b: 0, a: 1}
@@ -504,7 +504,7 @@ Material:
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineMaskColor: {r: 0, g: 0, b: 0, a: 1}
     - _Outline_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _RimLightColor: {r: 0.5924529, g: 0.24480599, b: 0.2888535, a: 1}
+    - _RimLightColor: {r: 1, g: 0, b: 0, a: 0}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
