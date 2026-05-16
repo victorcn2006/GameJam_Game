@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Level/Scenes/Play.unity
-    guid: 2607573c71192b84db70db20d46221f8
-  - enabled: 1
     path: Assets/Level/Scenes/Options.unity
     guid: f232aff2633f3a048ad36d8e178f0a20
+  - enabled: 1
+    path: Assets/Level/Scenes/Puzzles.unity
+    guid: a3c1fb10bb0c9764199d42ca574a4970
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 142978106fc66e24ba9915d8936c50ce,
       type: 3}

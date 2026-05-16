@@ -23,7 +23,8 @@ public class CharacterStats : MonoBehaviour
 
     private void Die()
     {
-        // Handle death logic here
+        GetComponent<SimplePlayerMovementInput>().DisableInput();
+        GetComponent<SimplePlayerMovementInput>().animator.SetTrigger("Death");
         Debug.Log(gameObject.name + " has died.");
     }
 }

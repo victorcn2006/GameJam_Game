@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LaserLightBehaviour : MonoBehaviour
@@ -7,8 +8,12 @@ public class LaserLightBehaviour : MonoBehaviour
     [SerializeField] float lifeTime = 5f;
 
     [SerializeField] public Transform origin;
+
+    Collider laserCol;
+
     void Start()
     {
+        laserCol = GetComponent<Collider>();
         // Auto-destrucción para limpiar jerarquía
         Destroy(gameObject, lifeTime);
     }
@@ -18,4 +23,5 @@ public class LaserLightBehaviour : MonoBehaviour
         // Movimiento constante hacia delante
         transform.position += transform.forward * speed * Time.deltaTime;
     }
+
 }
