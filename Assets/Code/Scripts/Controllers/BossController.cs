@@ -35,7 +35,8 @@ public class BossController : MonoBehaviour
     [SerializeField] float idleTime = 2f;
     [SerializeField] float vulnerableTime = 1f;
 
-
+    [Header("")]
+    [SerializeField] AudioClip sfx;
     string previousState = "";
 
     void Start()
@@ -131,6 +132,7 @@ public class BossController : MonoBehaviour
     {
         currentHP -= damage;
         heartImages[currentHP].enabled = false;
+        heartImages[currentHP].transform.GetChild(0).GetComponent<Image>().enabled = false;
         if (currentHP <= 0)
         {
             currentHP = 0;
