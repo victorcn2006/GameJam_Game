@@ -34,12 +34,11 @@ public class ShieldCollect : MonoBehaviour
                 playerController.animator.SetTrigger("TerminarChan");
                 playerController.obtainCamera.gameObject.SetActive(false);
                 playerController.shieldGetReference.SetActive(false);
-                BossStateMachine.StartStateMachineExecution();
+                setStaticRotation = false;
                 playerController.EnableInput();
                 playerController.hasShield = true;
+                BossStateMachine.StartStateMachineExecution();
             });
-            
-            //playerController.hasShield = true;
         }
     }
 }
