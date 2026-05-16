@@ -45,6 +45,8 @@ public class ActionButtonManager : MonoBehaviour
                 SceneManager.LoadScene("Options");
                 break;
             case BUTTONS.MAINMENU:
+                SceneManager.LoadScene("MainMenu");
+                break;
             case BUTTONS.CONTINUE:
                 
                 //PauseManager.instance?.SetPause();
