@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 5799260267078516189}
   m_Layer: 6
   m_Name: LaserLight
-  m_TagString: Laser
+  m_TagString: Undefined
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,6 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   speed: 15
   lifeTime: 10
+  origin: {fileID: 0}
 --- !u!136 &5799260267078516189
 CapsuleCollider:
   m_ObjectHideFlags: 0
