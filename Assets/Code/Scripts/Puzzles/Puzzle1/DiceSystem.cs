@@ -8,7 +8,6 @@ public class DiceSystem : MonoBehaviour
 
     [SerializeField] private GameObject dice;
     [SerializeField] private int diceID;
-    private bool _resolved = false;
     private PuzzleOneManager _puzzleOneManager;
 
     private void Awake()
