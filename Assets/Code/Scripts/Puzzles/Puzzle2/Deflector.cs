@@ -31,40 +31,46 @@ public class Deflector : MonoBehaviour, IInteractive
     {
         int _newColumnId = _currentColumnId;
         int _newRowId = _currentRowId;
-
-        switch (_pendingSide)
+        if (!(DOTween.TotalPlayingTweens() > 0))
         {
-            case DeflectorSide.Side.Left:
-                _newColumnId = Mathf.Clamp(_currentColumnId + 1, 0, 2);
-                break;
-            case DeflectorSide.Side.Right:
-                _newColumnId = Mathf.Clamp(_currentColumnId - 1, 0, 2);
-                break;
-            case DeflectorSide.Side.Front:
-                _newRowId = Mathf.Clamp(_currentRowId + 1, 0, 2);
-                break;
-            case DeflectorSide.Side.Back:
-                _newRowId = Mathf.Clamp(_currentRowId - 1, 0, 2);
-                break;
-        }
+            switch (_pendingSide)
+            {
+                case DeflectorSide.Side.Left:
+                    _newColumnId = Mathf.Clamp(_currentColumnId + 1, 0, 2);
+                    break;
+                case DeflectorSide.Side.Right:
+                    _newColumnId = Mathf.Clamp(_currentColumnId - 1, 0, 2);
+                    break;
+                case DeflectorSide.Side.Front:
+                    _newRowId = Mathf.Clamp(_currentRowId + 1, 0, 2);
+                    break;
+                case DeflectorSide.Side.Back:
+                    _newRowId = Mathf.Clamp(_currentRowId - 1, 0, 2);
+                    break;
+            }
 
-        Transform target = _puzzlePositions.GetPosition(_newRowId, _newColumnId);
+            Transform target = _puzzlePositions.GetPosition(_newRowId, _newColumnId);
 
-        if(!_puzzlePositions.IsOccupied(_newRowId, _newColumnId))
-        {
-            transform.DOMove(target.position, moveDuration).SetEase(Ease.Linear);
-            _currentColumnId = _newColumnId;
-            _currentRowId = _newRowId;
+            if(!_puzzlePositions.IsOccupied(_newRowId, _newColumnId))
+            {
+                transform.DOMove(target.position, moveDuration).SetEase(Ease.Linear);
+                _currentColumnId = _newColumnId;
+                _currentRowId = _newRowId;
 
-            if (_puzzlePositions.isIluminated(_newRowId, _newColumnId)) ActivateLight();
-            else DeactivateLight();
+                if (_puzzlePositions.isIluminated(_newRowId, _newColumnId)) ActivateLight();
+                else DeactivateLight();
 
+            }
         }
     }
 
     public void InteractB()
     {
-        _deflector.transform.DORotate(_deflector.transform.eulerAngles + new Vector3(0, 90f, 0), moveDuration/2);
+        if (!(DOTween.TotalPlayingTweens() > 0))
+        {
+            _deflector.transform.DORotate(_deflector.transform.eulerAngles + new Vector3(0, 90f, 0), moveDuration/2);
+
+        }
     }
 
     public void OnSidePlayerDetected(DeflectorSide.Side side)

@@ -17,11 +17,15 @@ public class DiceSystem : MonoBehaviour
 
     public void RotateDice()
     {
-        dice.transform
+
+        if (!(DOTween.TotalPlayingTweens() > 0))
+        {
+            dice.transform
             .DOLocalRotate(new Vector3(0f, 0f, -450f), 1.2f, RotateMode.FastBeyond360)
             .SetRelative()
             .SetEase(Ease.InQuad)
             .OnComplete(Check);
+        }
     }
 
     private void Check()
