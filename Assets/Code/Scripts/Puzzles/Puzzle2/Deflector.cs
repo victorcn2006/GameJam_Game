@@ -64,7 +64,11 @@ public class Deflector : MonoBehaviour, IInteractive
 
     public void InteractB()
     {
-        _deflector.transform.DORotate(_deflector.transform.eulerAngles + new Vector3(0, 90f, 0), moveDuration/2);
+        if (!(DOTween.TotalPlayingTweens() > 0))
+        {
+            _deflector.transform.DORotate(_deflector.transform.eulerAngles + new Vector3(0, 90f, 0), moveDuration/2);
+
+        }
     }
 
     public void OnSidePlayerDetected(DeflectorSide.Side side)
