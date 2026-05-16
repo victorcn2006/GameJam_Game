@@ -25,7 +25,6 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
     [Header("Colliders")]
     [SerializeField] Collider interactionCollider;
-    [SerializeField] Collider parryCollider;
 
     [Header("Input Actions")]
     [SerializeField] InputActionReference moveAction;
@@ -102,6 +101,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
             if (canParry && currentLaser != null)
             {
                 ParryLaser(currentLaser);
+                animator.SetTrigger("Parry");
             }
         }
 
@@ -149,17 +149,27 @@ public class SimplePlayerMovementInput : MonoBehaviour
         Debug.Log("PARRY PERFECTO!");
     }
 
-    void OnEnable()
+    public void EnableInput()
     {
         moveAction.action.Enable();
         sprintAction.action.Enable();
         interactionAction.action.Enable();
     }
 
-    void OnDisable()
+    public void DisableInput()
     {
         moveAction.action.Disable();
         sprintAction.action.Disable();
         interactionAction.action.Disable();
+    }
+
+    void OnEnable()
+    {
+        EnableInput();
+    }
+
+    void OnDisable()
+    {
+        DisableInput();
     }
 }
