@@ -15,6 +15,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
     [Header("Shield")]
     [SerializeField] public bool hasShield;
     [SerializeField] GameObject shieldReference;
+    [SerializeField] public GameObject shieldGetReference;
 
     [Header("UI References")]
     [SerializeField] Image exclamationImage;

@@ -22,14 +22,24 @@ public class ShieldCollect : MonoBehaviour
         {
             Debug.Log("Cojer");
             playerController = other.GetComponentInParent<SimplePlayerMovementInput>();
-            BossStateMachine.StartStateMachineExecution();
+            
             shieldModel.SetActive(false);
-            //playerController.DisableInput();
-            //setStaticRotation = true;
-            //playerController.obtainCamera.gameObject.SetActive(true);
-            playerController.hasShield = true;
-
-
+            playerController.DisableInput();
+            setStaticRotation = true;
+            playerController.obtainCamera.gameObject.SetActive(true);
+            playerController.animator.SetTrigger("ChaChaChaChan");
+            playerController.shieldGetReference.SetActive(true);
+            TimeManager.Instance.OneShotTimer(2f, () => 
+            {
+                playerController.animator.SetTrigger("TerminarChan");
+                playerController.obtainCamera.gameObject.SetActive(false);
+                playerController.shieldGetReference.SetActive(false);
+                BossStateMachine.StartStateMachineExecution();
+                playerController.EnableInput();
+                playerController.hasShield = true;
+            });
+            
+            //playerController.hasShield = true;
         }
     }
 }
