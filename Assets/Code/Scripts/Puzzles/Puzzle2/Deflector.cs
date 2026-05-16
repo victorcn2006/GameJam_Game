@@ -17,15 +17,14 @@ public class Deflector : MonoBehaviour, IInteractive
 
     private DeflectorSide.Side _pendingSide;
 
+    [SerializeField] private Material _rayLightMaterial;
 
     private void Start()
     {
         _currentRowId = initialPuzzlePositionId / 3;
         _currentColumnId = initialPuzzlePositionId % 3;
         transform.position = _puzzlePositions.GetPosition(_currentRowId, _currentColumnId).position;
-
         _rayLight.SetActive(false);
-
     }
 
     public void Interact()
@@ -89,18 +88,15 @@ public class Deflector : MonoBehaviour, IInteractive
         {
             yield return new WaitForSeconds(secondsToWait);
             _rayLight.SetActive(true);
-            Color color = _rayLight.GetComponent<MeshRenderer>().material.color;
-            color.a = 0f;
-            _rayLight.GetComponent<MeshRenderer>().material.color = color;
-            _rayLight.GetComponent<MeshRenderer>().material.DOFade(1f, 0.3f);
+            _rayLightMaterial.SetFloat("Tweak_transparency", -1f);
+            _rayLightMaterial.DOFloat(-0.8f, "Tweak_transparency", 1f);
         }
         else
         {
-            _rayLight.GetComponent<MeshRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+            _rayLightMaterial.DOFloat(-1f, "Tweak_transparency", 1f).OnComplete(() =>
             {
                 _rayLight.SetActive(false);
             });
         }
     }
-
 }
