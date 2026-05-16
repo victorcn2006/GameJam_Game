@@ -27,82 +27,85 @@ public class BossController : MonoBehaviour
     [Header("Player")]
     [SerializeField] Transform player;
 
+    [Header("Timings")]
+    [SerializeField] float idleTime = 2f;
+    [SerializeField] float vulnerableTime = 1f;
+
     [Header("Events")]
     private UnityEvent OnTakeDamage;
     private UnityEvent OnDeath;
     private UnityEvent OnHeal;
 
+    string previousState = "";
+
     void Start()
     {
         sm = GetComponent<StateMachineComponent>();
         tm = TimeManager.Instance;
+
         currentHP = maxHP;
     }
-
-    string previousState = "";
 
     void Update()
     {
         string currentState = sm.GetCurrentStateName();
 
-        // Detectar cambio de estado
-        if (currentState != previousState)
+        if (currentState == previousState)
+            return;
+
+        previousState = currentState;
+
+        switch (currentState)
         {
-            previousState = currentState;
+            case idleStateString:
+                EnterIdle();
+                break;
 
-            switch (currentState)
-            {
-                case idleStateString:
+            case attackStateString:
+                EnterAttack();
+                break;
 
-                    tm.OneShotTimer(0.5f, () =>
-                    {
-                        sm.GetStateContext().idleChangeState = true;
-                    });
+            case vulnerableStateString:
+                EnterVulnerable();
+                break;
 
-                    break;
-
-                case attackStateString:
-
-                    // SOLO se ejecuta una vez al entrar
-                    ShootLaser();
-
-                    break;
-
-                case vulnerableStateString:
-
-                    tm.OneShotTimer(1f, () =>
-                    {
-                        sm.GetStateContext().vulnerableChangeState = true;
-                    });
-
-                    break;
-
-                case dieStateString:
-                    break;
-            }
+            case dieStateString:
+                EnterDie();
+                break;
         }
     }
 
-    // DAMAGE
-
-    public void TakeDamage(int damage)
+    void EnterIdle()
     {
-        // Si está muerto o es invulnerable no recibe daño
-        if (isDead || invulnerable)
-            return;
-
-        currentHP -= damage;
-
-        Debug.Log("Boss recibió " + damage + " de daño");
-
-        OnTakeDamage?.Invoke();
-
-        // Evitar vida negativa
-        if (currentHP <= 0)
+        tm.OneShotTimer(idleTime, () =>
         {
-            currentHP = 0;
-            Die();
-        }
+            sm.GetStateContext().idleChangeState = true;
+        });
+    }
+
+    void EnterAttack()
+    {
+        ShootLaser();
+
+        tm.OneShotTimer(0.1f, () =>
+        {
+            sm.GetStateContext().attackChangeState = true;
+        });
+    }
+
+    void EnterVulnerable()
+    {
+        tm.OneShotTimer(vulnerableTime, () =>
+        {
+            sm.GetStateContext().vulnerableChangeState = true;
+        });
+    }
+
+    void EnterDie()
+    {
+        isDead = true;
+        Debug.Log("Boss muerto");
+        OnDeath?.Invoke();
     }
 
     public void ShootLaser()
@@ -110,68 +113,35 @@ public class BossController : MonoBehaviour
         if (LaserLightPrefab == null || LaserLightTransform == null || player == null)
             return;
 
-        // Dirección hacia el jugador
-        Vector3 direction = (player.position - LaserLightTransform.position).normalized;
+        Vector3 targetPosition = player.position;
 
-        // Rotación mirando al jugador
+        // Evita que apunte al suelo (bloquea eje Y)
+        targetPosition.y = LaserLightTransform.position.y;
+
+        Vector3 direction = (targetPosition - LaserLightTransform.position).normalized;
+
         Quaternion rotation = Quaternion.LookRotation(direction);
 
-        // Instanciar láser
-        GameObject laser = Instantiate(
+        Instantiate(
             LaserLightPrefab,
             LaserLightTransform.position,
             rotation
         );
-        sm.GetStateContext().vulnerableChangeState = true;
-        //timerStarted = false;
     }
 
-    // DEATH
-
-    void Die()
+    public void TakeDamage(int damage)
     {
-        if (isDead)
+        if (isDead || invulnerable)
             return;
 
-        isDead = true;
+        currentHP -= damage;
 
-        Debug.Log("Boss derrotado");
+        OnTakeDamage?.Invoke();
 
-        OnDeath?.Invoke();
+        if (currentHP <= 0)
+        {
+            currentHP = 0;
+            EnterDie();
+        }
     }
-
-    // INVULNERABILITY
-
-    public void SetInvulnerable(bool value)
-    {
-        invulnerable = value;
-    }
-
-    // GETTERS
-
-    public int GetCurrentHP()
-    {
-        return currentHP;
-    }
-
-    public int GetMaxHP()
-    {
-        return maxHP;
-    }
-
-    public bool IsDead()
-    {
-        return isDead;
-    }
-
-    // RESET BOSS
-
-    public void ResetBoss()
-    {
-        isDead = false;
-        currentHP = maxHP;
-        invulnerable = false;
-    }
-
-    
 }
