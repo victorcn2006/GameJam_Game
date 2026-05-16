@@ -8,6 +8,8 @@ public class PuzzleOneManager : MonoBehaviour
 
     [SerializeField] private GameObject _door;
 
+    private bool doorOpen = false;
+
     public void DiceState(int diceID, bool state)
     {
         if (diceID == 1) Dice1 = state;
@@ -21,8 +23,11 @@ public class PuzzleOneManager : MonoBehaviour
 
     private void OpenDoor()
     {
-
-        _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 90f, 0), 5f).SetEase(Ease.InOutCubic);
+        if (!doorOpen)
+        {
+            doorOpen = true;
+            _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 45f, 0), 5f).SetEase(Ease.InOutCubic);
+        }
     }
 
 }
