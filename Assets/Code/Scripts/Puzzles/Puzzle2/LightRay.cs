@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class LightRay : MonoBehaviour
 {
+
+    [SerializeField] private int _lightId;
     private void OnDisable()
     {
         
@@ -15,7 +17,7 @@ public class LightRay : MonoBehaviour
     {
         if (other.CompareTag("Turtle"))
         {
-            other.GetComponent<Turtle>().ActivateTurtle();
+            other.GetComponent<Turtle>().ActivateTurtle(_lightId);
         }
     }
 

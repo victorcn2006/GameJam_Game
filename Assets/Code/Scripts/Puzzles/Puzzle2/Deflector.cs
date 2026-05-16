@@ -11,6 +11,7 @@ public class Deflector : MonoBehaviour, IInteractive
     [SerializeField] private GameObject _deflector;
     [SerializeField] private GameObject _rayLight;
 
+
     private int _currentRowId;
     private int _currentColumnId;
 
@@ -24,6 +25,7 @@ public class Deflector : MonoBehaviour, IInteractive
         transform.position = _puzzlePositions.GetPosition(_currentRowId, _currentColumnId).position;
 
         _rayLight.SetActive(false);
+
     }
 
     public void Interact()
@@ -61,6 +63,11 @@ public class Deflector : MonoBehaviour, IInteractive
         }
     }
 
+    public void InteractB()
+    {
+        _deflector.transform.DORotate(_deflector.transform.eulerAngles + new Vector3(0, 90f, 0), moveDuration/2);
+    }
+
     public void OnSidePlayerDetected(DeflectorSide.Side side)
     {
         _pendingSide = side;
@@ -68,19 +75,32 @@ public class Deflector : MonoBehaviour, IInteractive
 
     public void ActivateLight()
     {
-        StartCoroutine(LightDelay(moveDuration));
-        _rayLight.SetActive(true);
+        StartCoroutine(LightDelay(moveDuration, true));
     }
 
     public void DeactivateLight()
     {
-        _rayLight.SetActive(false);
-        StartCoroutine(LightDelay(moveDuration));
+        StartCoroutine(LightDelay(moveDuration, false));
     }
 
-    private IEnumerator LightDelay(float secondsToWait)
+    private IEnumerator LightDelay(float secondsToWait, bool nextState)
     {
-        yield return new WaitForSeconds(secondsToWait);
+        if (nextState)
+        {
+            yield return new WaitForSeconds(secondsToWait);
+            _rayLight.SetActive(true);
+            Color color = _rayLight.GetComponent<MeshRenderer>().material.color;
+            color.a = 0f;
+            _rayLight.GetComponent<MeshRenderer>().material.color = color;
+            _rayLight.GetComponent<MeshRenderer>().material.DOFade(1f, 0.3f);
+        }
+        else
+        {
+            _rayLight.GetComponent<MeshRenderer>().material.DOFade(0f, 0.3f).OnComplete(() =>
+            {
+                _rayLight.SetActive(false);
+            });
+        }
     }
 
 }

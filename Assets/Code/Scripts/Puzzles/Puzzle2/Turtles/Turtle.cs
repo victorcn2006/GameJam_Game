@@ -3,6 +3,7 @@ using UnityEngine;
 public class Turtle : MonoBehaviour
 {
 
+    [SerializeField] private int _lightIdNeeded;
     Material _material;
 
     private void Start()
@@ -10,9 +11,11 @@ public class Turtle : MonoBehaviour
         _material = GetComponent<Material>();
     }
 
-    public void ActivateTurtle()
+    public void ActivateTurtle(int lightId)
     {
-        Debug.Log("Tortuga Activada");
+        if (lightId == _lightIdNeeded){
+            Debug.Log("Tortuga Activada");
+        }
         //_material. Activar EMISSION/ Iluminar algo para dar fedback
     }
 
