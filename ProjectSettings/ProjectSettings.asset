@@ -854,7 +854,7 @@ PlayerSettings:
     PS4: DOTWEEN
     PS5: DOTWEEN
     QNX: DOTWEEN
-    Standalone: DOTWEEN;UNITY_PIPELINE_URP
+    Standalone: DOTWEEN;UNITY_PIPELINE_URP;URP_COMPATIBILITY_MODE
     VisionOS: DOTWEEN
     WebGL: DOTWEEN
     Windows Store Apps: DOTWEEN
