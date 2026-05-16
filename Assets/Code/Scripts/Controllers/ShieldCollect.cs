@@ -19,6 +19,7 @@ public class ShieldCollect : MonoBehaviour
     [SerializeField] private List<GameObject> collidersBoss;
     [SerializeField] private CinemachineCamera battleCam;
     [SerializeField] private CinemachineCamera playerCam;
+    [SerializeField] private Canvas heartsCanvas;
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class ShieldCollect : MonoBehaviour
             playerController.animator.SetTrigger("ChaChaChaChan");
             playerController.shieldGetReference.SetActive(true);
             playerControllerAudioSource.Play();
+            heartsCanvas.gameObject.SetActive(true);
             TimeManager.Instance.OneShotTimer(2f, () => 
             {
                 playerController.animator.SetTrigger("TerminarChan");

@@ -245,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8895118585362764517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -501,6 +501,7 @@ MonoBehaviour:
   player: {fileID: 0}
   idleTime: 5
   vulnerableTime: 8
+  sfx: {fileID: 0}
 --- !u!114 &4099266209849671293
 MonoBehaviour:
   m_ObjectHideFlags: 0

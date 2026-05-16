@@ -35,15 +35,18 @@ public class BossController : MonoBehaviour
     [SerializeField] float idleTime = 2f;
     [SerializeField] float vulnerableTime = 1f;
 
-    [Header("")]
+    [Header("Sonido")]
+    AudioSource source;
     [SerializeField] AudioClip sfx;
+
+    [SerializeField] ParticleSystem explosion;
     string previousState = "";
 
     void Start()
     {
         sm = GetComponent<StateMachineComponent>();
         tm = TimeManager.Instance;
-
+        source = GetComponent<AudioSource>();
         currentHP = maxHP;
     }
 
@@ -132,6 +135,9 @@ public class BossController : MonoBehaviour
     {
         currentHP -= damage;
         heartImages[currentHP].enabled = false;
+        source.clip = sfx;
+        source.Play();
+        explosion.Play();
         heartImages[currentHP].transform.GetChild(0).GetComponent<Image>().enabled = false;
         if (currentHP <= 0)
         {

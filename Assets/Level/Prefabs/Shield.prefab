@@ -269,6 +269,11 @@ MonoBehaviour:
   shieldCollider: {fileID: 4304567332977244423}
   BossStateMachine: {fileID: 0}
   getItemSFX: {fileID: 8300000, guid: 937a7779764f6104dba6d83abf418556, type: 3}
+  collidersBoss:
+  - {fileID: 0}
+  battleCam: {fileID: 0}
+  playerCam: {fileID: 0}
+  heartsCanvas: {fileID: 0}
 --- !u!135 &4304567332977244423
 SphereCollider:
   m_ObjectHideFlags: 0
