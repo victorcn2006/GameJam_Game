@@ -9,6 +9,7 @@ public class Deflector : MonoBehaviour, IInteractive
     [SerializeField] private float moveDuration;
     [SerializeField] private GameObject _deflector;
     [SerializeField] private GameObject _rayLight;
+    [SerializeField] private GameObject _rayLightParent;
 
 
     private int _currentRowId;
@@ -26,6 +27,15 @@ public class Deflector : MonoBehaviour, IInteractive
         _rayLight.SetActive(false);
     }
 
+    private void Update()
+    {/*
+        if (Physics.Raycast(transform.position, _rayLight.transform.forward, out RaycastHit hit, 100f))
+        {
+            Debug.DrawRay(transform.position, Vector3.left * hit.distance, Color.red);
+            float distance = hit.distance;
+            _rayLightParent.transform.localScale = new Vector3(distance, _rayLightParent.transform.localScale.y, _rayLightParent.transform.localScale.z);
+        }*/
+    }
     public void Interact()
     {
         int _newColumnId = _currentColumnId;
@@ -93,12 +103,12 @@ public class Deflector : MonoBehaviour, IInteractive
         {
             yield return new WaitForSeconds(secondsToWait);
             _rayLight.SetActive(true);
-            _rayLightMaterial.SetFloat("Tweak_transparency", -1f);
-            _rayLightMaterial.DOFloat(-0.8f, "Tweak_transparency", 1f);
+            _rayLightMaterial.SetFloat("_Tweak_transparency", -1f);
+            _rayLightMaterial.DOFloat(-0.8f, "_Tweak_transparency", 1f);
         }
         else
         {
-            _rayLightMaterial.DOFloat(-1f, "Tweak_transparency", 1f).OnComplete(() =>
+            _rayLightMaterial.DOFloat(-1f, "_Tweak_transparency", 1f).OnComplete(() =>
             {
                 _rayLight.SetActive(false);
             });
