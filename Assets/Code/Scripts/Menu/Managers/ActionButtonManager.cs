@@ -39,7 +39,7 @@ public class ActionButtonManager : MonoBehaviour
         switch (currentButton)
         {
             case BUTTONS.PLAY:
-                SceneManager.LoadScene("Play");
+                SceneManager.LoadScene("Puzzles");
                 break;
             case BUTTONS.OPTIONS:
                 SceneManager.LoadScene("Options");

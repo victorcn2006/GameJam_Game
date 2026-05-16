@@ -33,6 +33,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
     [SerializeField] InputActionReference sprintAction;
     [SerializeField] InputActionReference interactionAction;
     [SerializeField] InputActionReference attackAction;
+    [SerializeField] InputActionReference rotateAction;
 
     CharacterController controller;
     public Animator animator;
@@ -97,6 +98,8 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
         if (interactionAction.action.WasPressedThisFrame())
             if (canInteract) _lastInteractiveObject.Interact();
+        if (rotateAction.action.WasPressedThisFrame())
+            if (canInteract) _lastInteractiveObject.InteractB();
 
         exclamationImage.enabled = canInteract;
 
