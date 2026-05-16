@@ -8,6 +8,7 @@ public class PuzzleTwoManager : MonoBehaviour
     private bool TurtleTwoState;
 
     [SerializeField] private GameObject _door;
+    private bool doorOpen = false;
 
     public void TurtleState(int turtleID, bool state) 
     {
@@ -23,7 +24,11 @@ public class PuzzleTwoManager : MonoBehaviour
     private void OpenDoor()
     {
 
-        _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 90f, 0), 5f).SetEase(Ease.InOutCubic);
+        if (!doorOpen)
+        {
+            doorOpen = true;
+            _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 90f, 0), 5f).SetEase(Ease.InOutCubic);
+        }
     }
 
 }
