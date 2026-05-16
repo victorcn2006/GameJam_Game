@@ -1,6 +1,8 @@
 using UnityEngine;
 using StateMachine.Runtime;
 using UnityEngine.Events;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class BossController : MonoBehaviour
     [SerializeField] GameObject LaserLightPrefab;
     [SerializeField] Transform LaserLightTransform;
 
+    [SerializeField] List<Image> heartImages;
+
     [Header("Player")]
     [SerializeField] Transform player;
 
@@ -31,10 +35,6 @@ public class BossController : MonoBehaviour
     [SerializeField] float idleTime = 2f;
     [SerializeField] float vulnerableTime = 1f;
 
-    [Header("Events")]
-    private UnityEvent OnTakeDamage;
-    private UnityEvent OnDeath;
-    private UnityEvent OnHeal;
 
     string previousState = "";
 
@@ -107,7 +107,6 @@ public class BossController : MonoBehaviour
     {
         isDead = true;
         Debug.Log("Boss muerto");
-        OnDeath?.Invoke();
     }
 
     public void ShootLaser()
@@ -130,13 +129,8 @@ public class BossController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isDead || invulnerable)
-            return;
-
         currentHP -= damage;
-
-        OnTakeDamage?.Invoke();
-
+        heartImages[currentHP].enabled = false;
         if (currentHP <= 0)
         {
             currentHP = 0;

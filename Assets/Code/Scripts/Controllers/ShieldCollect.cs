@@ -7,8 +7,18 @@ public class ShieldCollect : MonoBehaviour
     public Collider shieldCollider;
     public StateMachineComponent BossStateMachine;
 
+    [SerializeField] AudioClip getItemSFX;
+
     bool setStaticRotation;
     SimplePlayerMovementInput playerController;
+
+    private AudioSource playerControllerAudioSource;
+
+    private void Start()
+    {
+        playerControllerAudioSource = GetComponent<AudioSource>();
+        playerControllerAudioSource.clip = getItemSFX;
+    }
 
     private void Update()
     {
@@ -29,14 +39,22 @@ public class ShieldCollect : MonoBehaviour
             playerController.obtainCamera.gameObject.SetActive(true);
             playerController.animator.SetTrigger("ChaChaChaChan");
             playerController.shieldGetReference.SetActive(true);
+            playerControllerAudioSource.Play();
             TimeManager.Instance.OneShotTimer(2f, () => 
             {
                 playerController.animator.SetTrigger("TerminarChan");
                 playerController.obtainCamera.gameObject.SetActive(false);
-                playerController.shieldGetReference.SetActive(false);
                 setStaticRotation = false;
-                playerController.EnableInput();
-                playerController.hasShield = true;
+                TimeManager.Instance.OneShotTimer(0.8f, () => 
+                { 
+                    playerController.shieldGetReference.SetActive(false);
+                    playerController.hasShield = true;
+                    playerController.EnableInput();
+                }
+                );
+                gameObject.SetActive(false);
+                
+                
                 BossStateMachine.StartStateMachineExecution();
             });
         }

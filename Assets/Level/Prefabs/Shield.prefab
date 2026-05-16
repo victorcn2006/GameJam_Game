@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6452230318619770567, guid: 2306e9d9a74bf764fb5a254ed05247ff, type: 3}
+  - {fileID: 2100000, guid: 400c3b9a667ef1a4db557a56c29ea89f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -266,6 +266,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShieldCollect
   shieldModel: {fileID: 5352108377112037515}
   shieldCollider: {fileID: 4304567332977244423}
+  BossStateMachine: {fileID: 0}
+  getItemSFX: {fileID: 0}
 --- !u!135 &4304567332977244423
 SphereCollider:
   m_ObjectHideFlags: 0

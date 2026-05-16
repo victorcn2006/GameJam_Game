@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4921417341166588317}
   - component: {fileID: 7702645027975230340}
   - component: {fileID: 1448088209378897386}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5873328424755702574}
   - component: {fileID: 5573511060748570559}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 69898146684435032}
   - component: {fileID: 4513355862380308717}
   - component: {fileID: 4052997720144140566}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,9 +370,9 @@ GameObject:
   - component: {fileID: 679453192826195597}
   - component: {fileID: 137482421510163348}
   - component: {fileID: 5799260267078516189}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: LaserLight
-  m_TagString: Undefined
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,7 +425,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
