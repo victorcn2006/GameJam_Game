@@ -1,4 +1,4 @@
-using Unity.Cinemachine;
+ï»¿using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -49,11 +49,18 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
     AudioSource audioSource;
     public bool hasParry;
+
+    // NUEVO â†’ guardar Y fija
+    float fixedY;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        // Guardar altura inicial
+        fixedY = transform.position.y;
     }
 
     void Update()
@@ -61,7 +68,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
         bool isSprinting = sprintAction.action.IsPressed();
 
-        // Detectar si se está moviendo
+        // Detectar si se estÃ¡ moviendo
         bool isMoving = moveInput.sqrMagnitude > 0.01f;
 
         // Animator
@@ -69,10 +76,10 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
         float targetSpeed = isSprinting ? sprintSpeed : walkSpeed;
 
-        // Dirección deseada
+        // DirecciÃ³n deseada
         Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
 
-        // Aceleración suave tipo steering
+        // AceleraciÃ³n suave tipo steering
         Vector3 targetVelocity = inputDirection * targetSpeed;
 
         currentVelocity = Vector3.Lerp(
@@ -84,7 +91,12 @@ public class SimplePlayerMovementInput : MonoBehaviour
         // Movimiento
         controller.Move(currentVelocity * Time.deltaTime);
 
-        // Rotación suave basada en la velocidad real
+        // Mantener siempre la misma Y
+        Vector3 pos = transform.position;
+        pos.y = fixedY;
+        transform.position = pos;
+
+        // RotaciÃ³n suave basada en la velocidad real
         Vector3 horizontalVelocity = new Vector3(
             currentVelocity.x,
             0f,
@@ -104,9 +116,16 @@ public class SimplePlayerMovementInput : MonoBehaviour
         }
 
         if (interactionAction.action.WasPressedThisFrame())
-            if (canInteract) _lastInteractiveObject.Interact();
+        {
+            if (canInteract)
+                _lastInteractiveObject.Interact();
+        }
+
         if (rotateAction.action.WasPressedThisFrame())
-            if (canInteract) _lastInteractiveObject.InteractB();
+        {
+            if (canInteract)
+                _lastInteractiveObject.InteractB();
+        }
 
         exclamationImage.enabled = canInteract;
 
@@ -122,8 +141,8 @@ public class SimplePlayerMovementInput : MonoBehaviour
                     animator.SetTrigger("Parry");
                 }
             }
-
         }
+
         exclamationImage2.enabled = canParry;
     }
 
@@ -134,6 +153,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
             canInteract = true;
             _lastInteractiveObject = other.GetComponent<IInteractive>();
         }
+
         if (hasShield)
         {
             if (other.CompareTag("Laser"))
@@ -148,6 +168,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
     {
         if (other.CompareTag("Interactable"))
             canInteract = false;
+
         if (hasShield)
         {
             if (other.CompareTag("Laser"))
@@ -161,6 +182,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
     void ParryLaser(GameObject laser)
     {
         laserOrigin = laser.GetComponent<LaserLightBehaviour>().origin;
+
         if (laserOrigin == null || laser == null)
             return;
 
@@ -169,11 +191,16 @@ public class SimplePlayerMovementInput : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction);
 
         laser.transform.rotation = rotation;
+
         audioSource.clip = parrySound;
         audioSource.Play();
+
         Debug.Log("PARRY PERFECTO!");
+
         laserOrigin = null;
+
         hasParry = true;
+
         TimeManager.Instance.OneShotTimer(1f, () => hasParry = false);
     }
 
