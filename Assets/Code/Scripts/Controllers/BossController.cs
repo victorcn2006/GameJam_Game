@@ -3,6 +3,9 @@ using StateMachine.Runtime;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
@@ -35,14 +38,31 @@ public class BossController : MonoBehaviour
     [SerializeField] float idleTime = 2f;
     [SerializeField] float vulnerableTime = 1f;
 
+    [Header("Sonido")]
+    AudioSource source;
+    [SerializeField] AudioClip sfx;
 
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] ParticleSystem bigExplosion;
     string previousState = "";
+
+    [Header("Canvas Animation")]
+    [SerializeField] RectTransform animatedObject;
+    [SerializeField] RectTransform targetTransform;
+    [SerializeField] float moveDuration = 2f;
+
+    [SerializeField] Volume volumen;
+    [SerializeField] float fadeDuration = 1.5f;
+
+    Coroutine fadeCoroutine;
+
+    [SerializeField] AudioClip toBeContinuedSong;
 
     void Start()
     {
         sm = GetComponent<StateMachineComponent>();
         tm = TimeManager.Instance;
-
+        source = GetComponent<AudioSource>();
         currentHP = maxHP;
     }
 
@@ -131,10 +151,79 @@ public class BossController : MonoBehaviour
     {
         currentHP -= damage;
         heartImages[currentHP].enabled = false;
+        source.clip = sfx;
+        source.Play();
+        explosion.Play();
+        heartImages[currentHP].transform.GetChild(0).GetComponent<Image>().enabled = false;
         if (currentHP <= 0)
         {
             currentHP = 0;
             EnterDie();
+            bigExplosion.Play();
+            source.clip = toBeContinuedSong;
+            source.Play();
+            
+            TimeManager.Instance.OneShotTimer(0.1f, () => Time.timeScale = 0);
+            if (fadeCoroutine != null)
+                StopCoroutine(fadeCoroutine);
+
+            fadeCoroutine = StartCoroutine(FadeVolumeWeight(1f));
         }
+    }
+
+    IEnumerator FadeVolumeWeight(float targetWeight)
+    {
+        float startWeight = volumen.weight;
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            // Funciona aunque Time.timeScale = 0
+            elapsed += Time.unscaledDeltaTime;
+
+            volumen.weight = Mathf.Lerp(
+                startWeight,
+                targetWeight,
+                elapsed / fadeDuration
+            );
+            yield return null;
+        }
+
+        volumen.weight = targetWeight;
+        StartCoroutine(MoveUIToTarget());
+    }
+
+    IEnumerator MoveUIToTarget()
+    {
+        Vector3 startPos = animatedObject.position;
+        Vector3 targetPos = targetTransform.position;
+
+        float elapsed = 0f;
+
+        while (elapsed < moveDuration)
+        {
+            // Sigue funcionando con timeScale = 0
+            elapsed += Time.unscaledDeltaTime;
+
+            float t = elapsed / moveDuration;
+
+            // Suavizado
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            animatedObject.position = Vector3.Lerp(
+                startPos,
+                targetPos,
+                t
+            );
+
+            yield return null;
+        }
+
+        animatedObject.position = targetPos;
+
+        yield return new WaitForSecondsRealtime(3f);
+
+        Time.timeScale=1;
+        SceneManager.LoadScene("Credits");
     }
 }

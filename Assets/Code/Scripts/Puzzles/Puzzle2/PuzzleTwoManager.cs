@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PuzzleTwoManager : MonoBehaviour
@@ -9,6 +10,10 @@ public class PuzzleTwoManager : MonoBehaviour
 
     [SerializeField] private GameObject _door;
     private bool doorOpen = false;
+
+    [SerializeField] private CinemachineCamera doorCam;
+    [SerializeField] private CinemachineCamera playerCam;
+    [SerializeField] private SimplePlayerMovementInput playerInput;
 
     public void TurtleState(int turtleID, bool state) 
     {
@@ -28,6 +33,13 @@ public class PuzzleTwoManager : MonoBehaviour
         {
             doorOpen = true;
             _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 90f, 0), 5f).SetEase(Ease.InOutCubic);
+            playerInput.DisableInput();
+            doorCam.gameObject.SetActive(true);
+            TimeManager.Instance.OneShotTimer(5f, () =>
+            {
+                doorCam.gameObject.SetActive(false);
+                TimeManager.Instance.OneShotTimer(1f, () => playerInput.EnableInput());
+            });
         }
     }
 
