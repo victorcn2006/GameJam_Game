@@ -101,7 +101,7 @@ public class Deflector : MonoBehaviour, IInteractive
         if (nextState)
         {
             yield return new WaitForSeconds(secondsToWait);
-            _rayLightParent.transform.DOScaleX(70f, 1).SetEase(Ease.OutCubic);/*
+            _rayLightParent.transform.DOScaleX(75f, 1).SetEase(Ease.OutCubic);/*
             _rayLightMaterial.SetFloat("_Tweak_transparency", -1f);
             _rayLightMaterial.DOFloat(-0.8f, "_Tweak_transparency", 1f);*/
         }
