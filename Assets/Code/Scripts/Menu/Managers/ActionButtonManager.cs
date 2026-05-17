@@ -40,7 +40,7 @@ public class ActionButtonManager : MonoBehaviour
         {
             case BUTTONS.PLAY:
                 if(AudioManager.instance != null) AudioManager.instance.PlayClick();
-                SceneManager.LoadScene("Play");
+                SceneManager.LoadScene("Puzzles");
                 break;
             case BUTTONS.OPTIONS:
                 if (AudioManager.instance != null) AudioManager.instance.PlayClick();
@@ -53,10 +53,9 @@ public class ActionButtonManager : MonoBehaviour
             case BUTTONS.CONTINUE:
                 if (AudioManager.instance != null) AudioManager.instance.PlayClick();
                 break;
-                //PauseManager.instance?.SetPause();
-                break;
             case BUTTONS.CREDITS:
-                //PauseManager.instance?.SetPause();
+                if (AudioManager.instance != null) AudioManager.instance.PlayClick();
+                SceneManager.LoadScene("Credits");
                 break;
             case BUTTONS.EXIT:
                 #if UNITY_EDITOR

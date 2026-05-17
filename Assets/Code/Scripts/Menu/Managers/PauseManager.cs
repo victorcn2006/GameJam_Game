@@ -32,6 +32,11 @@ public class PauseManager : MonoBehaviour
     }
     private void OnPausePerformed(InputAction.CallbackContext context)
     {
+        if (PanelManager.instance != null && PanelManager.instance.IsOptionsActive())
+        {
+            PanelManager.instance.DesactiveOptions();
+        }
+
         TogglePause();
     }
 
