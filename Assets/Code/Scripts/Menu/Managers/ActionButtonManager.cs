@@ -39,27 +39,27 @@ public class ActionButtonManager : MonoBehaviour
         switch (currentButton)
         {
             case BUTTONS.PLAY:
-                AudioManager.instance.PlayClick();
-                SceneManager.LoadScene("Play");
+                if(AudioManager.instance != null) AudioManager.instance.PlayClick();
+                SceneManager.LoadScene("Puzzles");
                 break;
             case BUTTONS.OPTIONS:
-                AudioManager.instance.PlayClick();
+                if (AudioManager.instance != null) AudioManager.instance.PlayClick();
                 SceneManager.LoadScene("Options");
                 break;
             case BUTTONS.MAINMENU:
-                AudioManager.instance.PlayClick();
+                if (AudioManager.instance != null) AudioManager.instance.PlayClick();
                 SceneManager.LoadScene("MainMenu");
                 break;
             case BUTTONS.CONTINUE:
-                
-                //PauseManager.instance?.SetPause();
+                if (AudioManager.instance != null) AudioManager.instance.PlayClick();
                 break;
             case BUTTONS.CREDITS:
-                //PauseManager.instance?.SetPause();
+                if (AudioManager.instance != null) AudioManager.instance.PlayClick();
+                SceneManager.LoadScene("Credits");
                 break;
             case BUTTONS.EXIT:
                 #if UNITY_EDITOR
-                    AudioManager.instance.PlayClick();
+                    if(AudioManager.instance != null) AudioManager.instance.PlayClick();
                     EditorApplication.isPlaying = false; // Detiene el juego en el editor
                 #else
                     AudioManager.instance.PlayClick();
