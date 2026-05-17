@@ -31,7 +31,7 @@ public class PuzzleOneManager : MonoBehaviour
         if (!doorOpen)
         {
             doorOpen = true;
-            _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 45f, 0), 5f).SetEase(Ease.InOutCubic);
+            _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 70f, 0), 5f).SetEase(Ease.InOutCubic);
         }
     }
 
