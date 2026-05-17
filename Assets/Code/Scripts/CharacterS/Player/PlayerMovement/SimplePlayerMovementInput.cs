@@ -170,6 +170,7 @@ public class SimplePlayerMovementInput : MonoBehaviour
 
         laser.transform.rotation = rotation;
         audioSource.clip = parrySound;
+        audioSource.Play();
         Debug.Log("PARRY PERFECTO!");
         laserOrigin = null;
         hasParry = true;

@@ -12,6 +12,7 @@ public class PuzzleOneManager : MonoBehaviour
 
     [SerializeField] private CinemachineCamera doorCam;
     [SerializeField] private CinemachineCamera playerCam;
+    [SerializeField] private SimplePlayerMovementInput playerInput;
 
     private bool doorOpen = false;
 
@@ -31,7 +32,14 @@ public class PuzzleOneManager : MonoBehaviour
         if (!doorOpen)
         {
             doorOpen = true;
-            _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 70f, 0), 5f).SetEase(Ease.InOutCubic);
+            _door.transform.DORotate(_door.transform.eulerAngles + new Vector3(0, 80f, 0), 5f).SetEase(Ease.InOutCubic);
+            playerInput.DisableInput();
+            doorCam.gameObject.SetActive(true);
+            TimeManager.Instance.OneShotTimer(5f, () => 
+            { 
+                doorCam.gameObject.SetActive(false);
+                TimeManager.Instance.OneShotTimer(1f, () => playerInput.EnableInput());
+            });
         }
     }
 

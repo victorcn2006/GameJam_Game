@@ -15,6 +15,7 @@ public class DamageColliderBoss : MonoBehaviour
         if (other.CompareTag("Laser"))
         {
             GetComponent<BossController>().TakeDamage(1);
+            Destroy(other.gameObject);
         }
     }
 }
