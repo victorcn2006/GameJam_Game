@@ -2394,7 +2394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConsejoManager
   canvasGroup: {fileID: 557346464}
   textoConsejo: {fileID: 833915608}
-  consejo: Utilitza wasd per moure't
+  consejo: Utilitza WASD o Joystick Esquerre per moure't
   duracionFade: 1
   tiempoVisible: 5
 --- !u!114 &475253176 stripped
@@ -2945,7 +2945,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConsejoManager
   canvasGroup: {fileID: 557346464}
   textoConsejo: {fileID: 833915608}
-  consejo: Fes click esquerre en el moment just per retornar els lasers
+  consejo: "Fes click esquerre o pren el bot\xF3 B en el moment just per retornar
+    els lasers"
   duracionFade: 1
   tiempoVisible: 5
 --- !u!65 &670760153
@@ -6489,8 +6490,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConsejoManager
   canvasGroup: {fileID: 557346464}
   textoConsejo: {fileID: 833915608}
-  consejo: Utilitza la tecla R per rotar objectes cuan surt l'exclamacio sobre el
-    personatje
+  consejo: "Utilitza la tecla R o Bot\xF3 X per rotar objectes cuan surt l'exclamacio
+    sobre el personatje"
   duracionFade: 1
   tiempoVisible: 5
 --- !u!65 &1286777294
@@ -6580,7 +6581,7 @@ Transform:
   m_GameObject: {fileID: 1286777292}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 66.8, y: 1.9, z: 66.7887}
+  m_LocalPosition: {x: 66.8, y: 2.46, z: 66.7887}
   m_LocalScale: {x: 16.75201, y: 10, z: 34.0516}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11400,8 +11401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConsejoManager
   canvasGroup: {fileID: 557346464}
   textoConsejo: {fileID: 833915608}
-  consejo: Utilitza la tecla E per interaccionar cuan surt l'exclamacio sobre el
-    personatje
+  consejo: "Utilitza la tecla E o Bot\xF3 A per interaccionar cuan surt l'exclamacio
+    sobre el personatje"
   duracionFade: 1
   tiempoVisible: 5
 --- !u!65 &1978876336
