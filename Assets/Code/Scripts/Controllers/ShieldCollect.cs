@@ -39,7 +39,7 @@ public class ShieldCollect : MonoBehaviour
         {
             Debug.Log("Cojer");
             playerController = other.GetComponentInParent<SimplePlayerMovementInput>();
-            
+            shieldCollider.enabled = false;
             shieldModel.SetActive(false);
             playerController.DisableInput();
             setStaticRotation = true;
