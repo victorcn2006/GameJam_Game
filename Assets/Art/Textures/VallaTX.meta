@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Textures/VallaTX.meta
 guid: 250a8a871145b3e4d8a2542c4c62a34a
 folderAsset: yes
 DefaultImporter:
+========
+guid: 1320e39fd1923864c89caf859cbda10a
+PrefabImporter:
+>>>>>>>> origin/feat/add-polish-ui:Assets/Level/Prefabs/Systems.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
