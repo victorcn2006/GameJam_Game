@@ -24,7 +24,6 @@ public class Deflector : MonoBehaviour, IInteractive
         _currentRowId = initialPuzzlePositionId / 3;
         _currentColumnId = initialPuzzlePositionId % 3;
         transform.position = _puzzlePositions.GetPosition(_currentRowId, _currentColumnId).position;
-        _rayLight.SetActive(false);
     }
 
     private void Update()
@@ -77,7 +76,7 @@ public class Deflector : MonoBehaviour, IInteractive
     {
         if (!(DOTween.TotalPlayingTweens() > 0))
         {
-            _deflector.transform.DORotate(_deflector.transform.eulerAngles + new Vector3(0, 90f, 0), moveDuration/2);
+            _deflector.transform.DORotate(_deflector.transform.eulerAngles + new Vector3(0, 90f, 0), moveDuration/2).SetEase(Ease.Linear);
 
         }
     }
@@ -102,16 +101,13 @@ public class Deflector : MonoBehaviour, IInteractive
         if (nextState)
         {
             yield return new WaitForSeconds(secondsToWait);
-            _rayLight.SetActive(true);
+            _rayLightParent.transform.DOScaleX(50f, 1).SetEase(Ease.OutCubic);/*
             _rayLightMaterial.SetFloat("_Tweak_transparency", -1f);
-            _rayLightMaterial.DOFloat(-0.8f, "_Tweak_transparency", 1f);
+            _rayLightMaterial.DOFloat(-0.8f, "_Tweak_transparency", 1f);*/
         }
         else
         {
-            _rayLightMaterial.DOFloat(-1f, "_Tweak_transparency", 1f).OnComplete(() =>
-            {
-                _rayLight.SetActive(false);
-            });
+            _rayLightParent.transform.DOScaleX(0.1f, 1f).SetEase(Ease.InCubic);
         }
     }
 }
