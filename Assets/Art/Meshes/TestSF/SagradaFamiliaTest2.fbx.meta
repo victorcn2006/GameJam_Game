@@ -3,7 +3,52 @@ guid: a50d56dd3fccd994d8069415c1f73a6c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Atril
+    second: {fileID: 2100000, guid: 2ac20fe05a5314044a03d764a95f8424, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Centro
+    second: {fileID: 2100000, guid: fc65464baced4c949946e00587d68991, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Columna
+    second: {fileID: 2100000, guid: 36c13937e716b8e438c7c692a372712a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: c68242ad12aa3844e933f8a2e00ce658, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 3c26551ba20cec44eb1b5b709bdb3d8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pared
+    second: {fileID: 2100000, guid: c8609245164be26439cb539ff6f152f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParedesBorde
+    second: {fileID: 2100000, guid: 9ffeaf49a29c58941bdd50d4a47a6cba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tile1
+    second: {fileID: 2100000, guid: 6ac5e2a732d78b043b275bc44e1c4f4c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tile2
+    second: {fileID: 2100000, guid: e65aa9df1c54f07408ba88db0f3dc1d0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
