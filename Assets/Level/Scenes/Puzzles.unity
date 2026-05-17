@@ -7486,6 +7486,16 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1431429375}
+    - target: {fileID: 8303482397416482487, guid: a59f17c497705ef47a3313b12a107d68,
+        type: 3}
+      propertyPath: idleTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303482397416482487, guid: a59f17c497705ef47a3313b12a107d68,
+        type: 3}
+      propertyPath: vulnerableTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8895118585362764517, guid: a59f17c497705ef47a3313b12a107d68,
         type: 3}
       propertyPath: m_LocalPosition.z
