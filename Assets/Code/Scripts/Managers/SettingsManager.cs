@@ -5,6 +5,8 @@ public class SettingsManager : MonoBehaviour
     public static SettingsManager instance { get; private set; }
 
     private const string FULLSCREEN_KEY = "IsFullscreen";
+    private const string RESOLUTION_WIDTH_KEY = "ResolutionWidth";
+    private const string RESOLUTION_HEIGHT_KEY = "ResolutionHeight";
 
     private void Awake()
     {
@@ -24,10 +26,25 @@ public class SettingsManager : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
         
-        // Save to PlayerPrefs (1 for true, 0 for false)
         PlayerPrefs.SetInt(FULLSCREEN_KEY, isFullscreen ? 1 : 0);
         PlayerPrefs.Save();
 
+        PlayClickSound();
+    }
+
+    public void SetResolution(int width, int height)
+    {
+        Screen.SetResolution(width, height, Screen.fullScreen);
+        
+        PlayerPrefs.SetInt(RESOLUTION_WIDTH_KEY, width);
+        PlayerPrefs.SetInt(RESOLUTION_HEIGHT_KEY, height);
+        PlayerPrefs.Save();
+
+        PlayClickSound();
+    }
+
+    private void PlayClickSound()
+    {
         if (AudioManager.instance != null)
         {
             AudioManager.instance.PlayClick();
@@ -36,8 +53,11 @@ public class SettingsManager : MonoBehaviour
 
     private void LoadSettings()
     {
-        // Default to fullscreen (1) if no key exists
         bool isFullscreen = PlayerPrefs.GetInt(FULLSCREEN_KEY, 1) == 1;
-        Screen.fullScreen = isFullscreen;
+        
+        int width = PlayerPrefs.GetInt(RESOLUTION_WIDTH_KEY, Screen.currentResolution.width);
+        int height = PlayerPrefs.GetInt(RESOLUTION_HEIGHT_KEY, Screen.currentResolution.height);
+
+        Screen.SetResolution(width, height, isFullscreen);
     }
 }
